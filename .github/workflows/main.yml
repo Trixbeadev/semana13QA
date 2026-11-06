@@ -1,12 +1,12 @@
-# Workflow da Semana 13 – complete as 3 lacunas (____) e salve.
-# Atenção: no YAML a indentação é feita com ESPAÇOS, nunca com TAB.
 name: Testes de API
 
-on: [ push , workflow_dispatch ]      # LACUNA 1: qual evento dispara o pipeline a cada envio de código?
+on:
+  push:
+  workflow_dispatch:
 
 jobs:
   testes-api:
-    runs-on: ubuntu-latest                     # LACUNA 2: qual máquina do GitHub roda o job? (Linux, versão mais recente)
+    runs-on: ubuntu-latest
     steps:
       - name: Baixar o código do repositório
         uses: actions/checkout@v6
@@ -16,8 +16,15 @@ jobs:
         with:
           node-version: 24
 
-      - name: Instalar o Newman
-        run: npm install -g newman
+      - name: Instalar o Newman e o gerador de relatório
+        run: npm install -g newman newman-reporter-htmlextra
 
       - name: Rodar a coleção de testes
-        run: newman run colecao.json         # LACUNA 3: qual arquivo o Newman deve rodar?
+        run: newman run colecao.json -r cli,htmlextra --reporter-htmlextra-export relatorio.html
+
+      - name: Guardar o relatório
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: relatorio-newman
+          path: relatorio.html
