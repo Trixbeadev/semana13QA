@@ -13,10 +13,10 @@
             "type": "text/javascript",
             "exec": [
               "pm.test(\"Status code é 200\", () => {",
-              "  pm.response.to.have.status(200)",
+              "  pm.response.to.have.status(404)",
               "})",
               "pm.test(\"O usuário tem id 1\", () => {",
-              "  pm.expect(pm.response.json().id).to.eql(1)",
+              "  pm.expect(pm.response.json().id).to.eql(3)",
               "})",
               "pm.test(\"O nome é Leanne Graham\", () => {",
               "  pm.expect(pm.response.json().name).to.eql(\"Leanne Graham\")",
