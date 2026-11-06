@@ -2,11 +2,11 @@
 # Atenção: no YAML a indentação é feita com ESPAÇOS, nunca com TAB.
 name: Testes de API
 
-on: [ ____ , workflow_dispatch ]      # LACUNA 1: qual evento dispara o pipeline a cada envio de código?
+on: [ push , workflow_dispatch ]      # LACUNA 1: qual evento dispara o pipeline a cada envio de código?
 
 jobs:
   testes-api:
-    runs-on: ____                     # LACUNA 2: qual máquina do GitHub roda o job? (Linux, versão mais recente)
+    runs-on: ubuntu-latest                     # LACUNA 2: qual máquina do GitHub roda o job? (Linux, versão mais recente)
     steps:
       - name: Baixar o código do repositório
         uses: actions/checkout@v6
@@ -20,4 +20,4 @@ jobs:
         run: npm install -g newman
 
       - name: Rodar a coleção de testes
-        run: newman run ____          # LACUNA 3: qual arquivo o Newman deve rodar?
+        run: newman run colecao.json         # LACUNA 3: qual arquivo o Newman deve rodar?
